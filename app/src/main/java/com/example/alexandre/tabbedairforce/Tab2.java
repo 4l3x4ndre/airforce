@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  * Created by alexandre on 21/10/17.
  */
 
-public class Tab2  extends Fragment {
+public class Tab2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

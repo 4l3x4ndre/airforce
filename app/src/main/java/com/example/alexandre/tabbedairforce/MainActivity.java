@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             //Returning the current tabs
             switch (position) {
                 case 0:
-                    Tab1 tab1 = new Tab1();
+                    FormActivity tab1 = new FormActivity();
                     return tab1;
                 case 1:
                     Tab2 tab2 = new Tab2();
@@ -129,11 +129,11 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Take off";
+                    return "Parameters";
                 case 1:
-                    return "Landing";
+                    return "Takeoff";
                 case 2:
-                    return "Settings";
+                    return "Landing";
             }
             return null;
         }
