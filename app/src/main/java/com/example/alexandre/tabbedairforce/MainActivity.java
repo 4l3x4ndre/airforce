@@ -1,25 +1,24 @@
 package com.example.alexandre.tabbedairforce;
 
-import android.support.design.widget.TabLayout;
+import android.content.Context;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
+import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(mSectionsPagerAdapter.getCount());
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -63,8 +63,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // permet de détecter les changements de fragment
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Fragment frag = mSectionsPagerAdapter.getItem(position);
+                if(frag instanceof Tab2){
+                    ((Tab2) frag).updateFragment();
+                }
+                // masque le clavier une fois le fragment choisi.
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), 0);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        mViewPager.setCurrentItem(0);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewPager.clearOnPageChangeListeners();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private static final String TAG = "SectionsPagerAdapter";
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -105,18 +135,13 @@ public class MainActivity extends AppCompatActivity {
             //Returning the current tabs
             switch (position) {
                 case 0:
-                    FormActivity tab1 = new FormActivity();
-                    return tab1;
+                    return FormActivity.getInstance();
                 case 1:
-                    Tab2 tab2 = new Tab2();
-                    return tab2;
+                    return Tab2.getInstance();
                 case 2:
-                    Tab3 tab3 = new Tab3();
-                    return tab3;
-
-                default:
-                    return null;
+                    return Tab3.getInstance();
             }
+            return null;
         }
 
         @Override
@@ -137,5 +162,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
     }
+
 }

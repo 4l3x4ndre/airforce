@@ -1,24 +1,27 @@
 package com.example.alexandre.tabbedairforce;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 public class FormActivity extends Fragment {
+
+    /* une fois instanciée, il est plus facile d'agir sur son contenu */
+    private static FormActivity _tab;
+
+    public static FormActivity getInstance(){
+        if (_tab == null)
+            _tab = new FormActivity();
+        return _tab;
+    }
+
 
     private static final String TAG = "TakeOffLog";
     protected TextWatcher myTextWatcher;
@@ -29,39 +32,48 @@ public class FormActivity extends Fragment {
 
     protected void callCalculation(View view) {
 
+        Constantes.alt = ((EditText) view.findViewById(R.id.editTextAltitude)).getText().toString();
+        Constantes.qnhS = ((EditText) view.findViewById(R.id.editTextQNH)).getText().toString();
+        Constantes.TempS = ((EditText) view.findViewById(R.id.editTextTemp)).getText().toString();
 
 
-        String alt = ((EditText) view.findViewById(R.id.editTextAltitude)).getText().toString();
-        String qnhS = ((EditText) view.findViewById(R.id.editTextQNH)).getText().toString();
-        String TempS = ((EditText) view.findViewById(R.id.editTextTemp)).getText().toString();
 
-        FragmentManager fragMan = getActivity().getSupportFragmentManager();
-        Tab2 tab2 =  (Tab2) fragMan.findFragmentById(R.id.container);
+/* ******************************************************/
+/* ****** j'ai mis ce code dans le fragment Tab2 ****** */
 
-        if (!TextUtils.isEmpty(alt) && !TextUtils.isEmpty(qnhS) && !TextUtils.isEmpty(TempS)) {
-            int altAD = Integer.parseInt(alt);
-            int QNH = Integer.parseInt(qnhS);
-            int Temp = Integer.parseInt(TempS);
-            int[] resultats = TakeOffCalculation.calculation("Dur", altAD, QNH, Temp);
-            ((TextView) tab2.getView().findViewById(R.id.R7)).setText(Integer.toString(resultats[3]));
-            ((TextView) tab2.getView().findViewById(R.id.D7)).setText(Integer.toString(resultats[2]));
-            ((TextView) tab2.getView().findViewById(R.id.R9)).setText(Integer.toString(resultats[1]));
-            ((TextView) tab2.getView().findViewById(R.id.D9)).setText(Integer.toString(resultats[0]));
-            resultats = TakeOffCalculation.calculation("Herbe", altAD, QNH, Temp);
-            ((TextView) tab2.getView().findViewById(R.id.R7B)).setText(Integer.toString(resultats[3]));
-            ((TextView) tab2.getView().findViewById(R.id.D7B)).setText(Integer.toString(resultats[2]));
-            ((TextView) tab2.getView().findViewById(R.id.R9B)).setText(Integer.toString(resultats[1]));
-            ((TextView) tab2.getView().findViewById(R.id.D9B)).setText(Integer.toString(resultats[0]));
-        }else {
-            ((TextView) tab2.getView().findViewById(R.id.R7)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.D7)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.R9)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.D9)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.R7B)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.D7B)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.R9B)).setText("?");
-            ((TextView) tab2.getView().findViewById(R.id.D9B)).setText("?");
-        }
+//        FragmentManager fragMan = getActivity().getSupportFragmentManager();
+//        Fragment frag = fragMan.findFragmentById(container);
+//          if(frag instanceof Tab2) {
+//            Log.e(TAG, "it's TAB2");
+//            Tab2 tab2 = (Tab2) frag;
+//
+//            if (!TextUtils.isEmpty(alt) && !TextUtils.isEmpty(qnhS) && !TextUtils.isEmpty(TempS)) {
+//                int altAD = Integer.parseInt(alt);
+//                int QNH = Integer.parseInt(qnhS);
+//                int Temp = Integer.parseInt(TempS);
+//                int[] resultats = TakeOffCalculation.calculation("Dur", altAD, QNH, Temp);
+//                ((TextView) tab2.getView().findViewById(R.id.R7)).setText(Integer.toString(resultats[3]));
+//                ((TextView) tab2.getView().findViewById(R.id.D7)).setText(Integer.toString(resultats[2]));
+//                ((TextView) tab2.getView().findViewById(R.id.R9)).setText(Integer.toString(resultats[1]));
+//                ((TextView) tab2.getView().findViewById(R.id.D9)).setText(Integer.toString(resultats[0]));
+//                resultats = TakeOffCalculation.calculation("Herbe", altAD, QNH, Temp);
+//                ((TextView) tab2.getView().findViewById(R.id.R7B)).setText(Integer.toString(resultats[3]));
+//                ((TextView) tab2.getView().findViewById(R.id.D7B)).setText(Integer.toString(resultats[2]));
+//                ((TextView) tab2.getView().findViewById(R.id.R9B)).setText(Integer.toString(resultats[1]));
+//                ((TextView) tab2.getView().findViewById(R.id.D9B)).setText(Integer.toString(resultats[0]));
+//            } else {
+//                ((TextView) tab2.getView().findViewById(R.id.R7)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.D7)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.R9)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.D9)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.R7B)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.D7B)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.R9B)).setText("?");
+//                ((TextView) tab2.getView().findViewById(R.id.D9B)).setText("?");
+//            }
+//        }else{
+//            Log.e(TAG, "it's another frag");
+//        }
     }
 
     @Override
@@ -113,6 +125,5 @@ public class FormActivity extends Fragment {
 
 
     }
-
 
 }

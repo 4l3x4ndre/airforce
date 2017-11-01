@@ -12,6 +12,15 @@ import android.view.ViewGroup;
 
 public class Tab3 extends Fragment {
 
+    /* une fois instanciée, il est plus facile d'agir sur son contenu car la vue est créée */
+    private static Tab3 _tab;
+
+    public static Tab3 getInstance(){
+        if( _tab == null)
+            _tab = new Tab3();
+        return _tab;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
