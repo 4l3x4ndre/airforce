@@ -8,24 +8,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-    <!--tools:context="com.example.alexandre.tabbedairforce.MainActivity$PlaceholderFragment">-->
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="13dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dur"
+            android:layout_height="50dp"
+            android:background="@drawable/texturepisteatterrissage"
+            android:text="Hard ground"
             android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -138,12 +138,13 @@
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignTop="@+id/linearLayout"
-            android:layout_marginTop="103dp"
-            android:text="Herbe"
+            android:background="@drawable/texturegazon"
+            android:text="Grass"
             android:textAlignment="center"
             android:textAllCaps="false"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -254,5 +255,18 @@
         </TableLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/linearLayout"
+        android:layout_marginStart="90dp"
+        android:text="Takeoff"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 
 </RelativeLayout>

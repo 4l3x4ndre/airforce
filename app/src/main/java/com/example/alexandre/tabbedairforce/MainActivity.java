@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 if(frag instanceof Tab2){
                     ((Tab2) frag).updateFragment();
                 }
+                if(frag instanceof Tab3){
+                    ((Tab3) frag).updateFragment();
+                }
                 // masque le clavier une fois le fragment choisi.
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), 0);
